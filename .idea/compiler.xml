@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cowboy" />
+        <module name="gexin-docker-demo" />
+        <module name="gexindemo" />
+        <module name="gexineureka" />
+        <module name="gexingateway" />
+        <module name="gexinhttppython" />
+        <module name="gexinloges" />
+        <module name="gexinnacos" />
+        <module name="gexinoauth2" />
+        <module name="gexinzuul" />
+        <module name="k8s-demo" />
+        <module name="k8s-zuul" />
+        <module name="k8seureka" />
+        <module name="k8sgateway" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="apple-demo" target="1.8" />
+      <module name="k8sdemo" target="1.8" />
+      <module name="k8szuul" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

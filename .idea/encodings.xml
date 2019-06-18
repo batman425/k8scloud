@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/doc/skywalking/skywalking注意事项.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/gexin-demo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-docker-demo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-eureka" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-gateway" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-httppython" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-loges" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-nacos" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-oauth2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/gexin-zuul" charset="UTF-8" />
+    <file url="file://G:/k8scloud" charset="UTF-8" />
+    <file url="file://G:/k8scloud/cowboy" charset="UTF-8" />
+    <file url="file://G:/k8scloud/k8s-demo" charset="UTF-8" />
+    <file url="file://G:/k8scloud/k8s-eureka" charset="UTF-8" />
+    <file url="file://G:/k8scloud/k8s-gateway" charset="UTF-8" />
+    <file url="file://G:/k8scloud/k8s-zuul" charset="UTF-8" />
+  </component>
+</project>
