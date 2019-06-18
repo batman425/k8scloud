@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: cowboy
+server:
+  port: 8888

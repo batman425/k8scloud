@@ -1,0 +1,62 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: demo-0
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8sdemo
+  template:
+    metadata:
+      labels:
+        app: k8sdemo
+    spec:
+      nodeName: node1
+      terminationGracePeriodSeconds: 60
+      hostNetwork: true
+      containers:
+      - name: k8sdemo
+        image:  172.19.68.11:5000/batman/k8s-demo:1.0-SNAPSHOT
+        ports:
+        - name: http
+          containerPort: 8051
+          hostPort: 8051
+        livenessProbe:
+          tcpSocket:
+            port: 8051
+          initialDelaySeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: 8051
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 2
+        #挂载到容器内部的存储卷配置
+        volumeMounts:
+        #引用pod定义的共享存储卷的名称，需用volumes[]部分定义的卷名
+        - name: demologs
+          #存储卷在容器内mount的绝对路径，应少于512字符
+          mountPath: /opt/dev/log/k8sdemo
+      #在该pod上定义共享存储卷列表
+      volumes:
+      - name: demologs
+        #挂载来源 表示挂载pod所在宿主机的目录
+        hostPath:
+          path: /home/k8s/gateway/logs/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8sdemo
+  namespace: default
+  labels:
+    app: k8sdemo
+spec:
+  ports:
+  - port: 8051
+    name: k8sdemo
+    targetPort: 8051
+  selector:
+    app: k8sdemo

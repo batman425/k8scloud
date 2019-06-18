@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: eureka
+server:
+  port: 8091
+eureka:
+  client:
+    register-with-eureka: false # 是否把服务中心本身当做eureka client 注册。默认为true
+    fetch-registry: false # 是否拉取 eureka server 的注册信息。 默认为true
+#    service-url:
+ #     defaultZone: http://localhost:8091/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+    ip-address: 127.0.0.1
+  server:
+    enable-self-preservation: true # 是否开启自我保护。 默认为 true.

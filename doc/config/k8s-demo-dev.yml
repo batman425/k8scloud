@@ -1,0 +1,18 @@
+server:
+  port: 8051
+user:
+  name: k8sdemo123
+  age: 1
+spring:
+  application:
+    name: k8sdemo
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.103.52.93:8848
+#对外暴露该服务
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

@@ -1,0 +1,3 @@
+com\batman\cowboy\redis\RedisManager.class
+com\batman\cowboy\redis\config\RedisCacheConfiguration.class
+com\batman\cowboy\redis\DistributedLock.class

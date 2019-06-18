@@ -1,0 +1,89 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gateway-0
+  namespace: default
+  labels:
+    app: k8sgateway
+    version: release-79fbfe5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8sgateway
+  template:
+    metadata:
+      labels:
+        app: k8sgateway
+    spec:
+      nodeName: node1
+      terminationGracePeriodSeconds: 60
+      hostNetwork: true
+      containers:
+      - name: k8sgateway
+        image:  172.19.68.11:5000/batman/k8s-gateway:1.0-SNAPSHOT
+        ports:
+        - name: http
+          containerPort: 8081
+          hostPort: 8081
+        livenessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: 8081
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          failureThreshold: 2
+        #挂载到容器内部的存储卷配置
+        volumeMounts:
+        #引用pod定义的共享存储卷的名称，需用volumes[]部分定义的卷名
+        - name: demologs
+          #存储卷在容器内mount的绝对路径，应少于512字符
+          mountPath: /opt/dev/log/k8sgateway
+      #在该pod上定义共享存储卷列表
+      volumes:
+      - name: demologs
+        #挂载来源 表示挂载pod所在宿主机的目录
+        hostPath:
+          path: /home/k8s/gateway/logs/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8sgateway
+  namespace: default
+  labels:
+    app: k8sgateway
+    version: release-79fbfe5
+spec:
+  ports:
+  - port: 8081
+    name: k8sgateway
+    targetPort: 8081
+  selector:
+    app: k8sgateway
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-k8sgateway-api
+  namespace: default
+  #自定义标签
+  labels:
+    app: k8sgateway
+    version: release-79fbfe5
+  #自定义注释列表
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: myk8s.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: k8sgateway
+          servicePort: 8081

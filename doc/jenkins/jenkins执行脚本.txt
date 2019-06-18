@@ -1,0 +1,32 @@
+#执行shell
+cd /root/.jenkins/workspace/claimgateway/claimgateway
+imagesid=`docker images|grep -i claimgateway|awk '{print $3}'`
+echo "查询到的镜像为"$imagesid
+if  [ ! -n "$imagesid" ];then
+   echo $imagesid "is null"
+else
+    docker rmi $imagesid -f
+    echo "删除镜像成功"$imagesid
+fi
+mvn clean package docker:build
+docker tag claimgateway:1.0-SNAPSHOT 172.19.68.11:5000/claimdev/claimgateway:1.0-SNAPSHOT
+docker rmi claimgateway:1.0-SNAPSHOT
+docker push 172.19.68.11:5000/claimdev/claimgateway:1.0-SNAPSHOT
+
+#ssh server
+imagesid=`docker images|grep -i claimgateway|awk '{print $3}'`
+echo $imagesid
+if  [ ! -n "$imagesid" ];then
+   echo $imagesid "is null"
+else
+    docker rmi $imagesid -f
+    echo "删除镜像成功"$imagesid
+fi
+docker pull 172.19.68.11:5000/claimdev/claimgateway:1.0-SNAPSHOT
+imagesid2=`docker images|grep -i claimgateway|awk '{print $3}'`
+echo "最新镜像下载成功"$imagesid
+
+#ssh server
+cd /home/k8s/gateway
+kubectl replace -f gateway.yaml
+echo "发布成功"

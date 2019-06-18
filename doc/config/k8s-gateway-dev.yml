@@ -1,0 +1,43 @@
+server:
+  port: 8081
+user:
+  name: zhangsan1111
+  age: 30
+spring:
+  application:
+    name: k8sgateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.103.52.93:8848
+        # metadata:
+        #    user.name: "batman"
+        #   user.password: "batman"
+    # 路由到其他服务,url需要用[lb://]+[serviceId]
+    gateway:
+      #可以根据请求参数,cookie,host,请求时间,请求头等进行校验判断路由, 下面根据先后顺序转发
+      routes:
+      - id: k8sdemo
+        # 必须使用http进行转发 lb代表从注册中心获取服务
+        uri: lb://k8sdemo
+        predicates:
+        #转发的路径
+        - Path=/k8sdemo/**
+        filters:
+        # http://10.0.0.113:8052/gexinnacos/test/test, 必须加上StripPrefix=1，否则访问服务时会带上nacosconfig
+        #而不是我们期望的去掉nacosconfig，只保留**部分
+        - StripPrefix=1
+      discovery:
+        locator:
+          enabled: true
+#对外暴露该服务
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#  endpoint:
+#    health:
+#      show-details: ALWAYS
+security:
+  enabled: false
