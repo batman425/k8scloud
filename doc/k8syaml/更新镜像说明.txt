@@ -1,0 +1,25 @@
+#解决开发环境下频繁发布的问题
+#查看发布的内容
+[root@master bin]# kubectl get deploy
+NAME        READY   UP-TO-DATE   AVAILABLE   AGE
+demo-0      1/1     1            1           13h
+gateway-0   1/1     1            1           12h
+#滚动更新镜像
+kubectl set image deploy demo-0 claimdemo=172.19.68.11:5000/claimdev/claimdemo:7
+
+#kubenetes拉取harbor内镜像
+#创建secret
+kubectl create secret docker-registry registry-harbor --namespace=default \
+--docker-server=http://172.19.68.11:5000 --docker-username=liusw \
+--docker-password=Lsw123456 --docker-email=873001704@qq.com
+[root@master gateway]# kubectl create secret docker-registry registry-harbor --namespace=default \
+> --docker-server=http://172.19.68.11:5000 --docker-username=liusw \
+> --docker-password=Lsw123456 --docker-email=873001704@qq.com
+secret/registry-harbor created
+#说明
+secret-name： secret的名称
+namespace： 命名空间
+docker-server： Harbor仓库地址
+docker-username： Harbor仓库登录账号
+docker-password： Harbor仓库登录密码
+docker-email： 邮件地址

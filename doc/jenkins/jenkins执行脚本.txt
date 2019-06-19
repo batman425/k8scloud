@@ -1,32 +1,48 @@
 #执行shell
-cd /root/.jenkins/workspace/claimgateway/claimgateway
-imagesid=`docker images|grep -i claimgateway|awk '{print $3}'`
-echo "查询到的镜像为"$imagesid
-if  [ ! -n "$imagesid" ];then
-   echo $imagesid "is null"
+cd /root/.jenkins/workspace/claimdemo/claimdemo
+release_tag=$GIT_COMMIT
+echo "打印git的值"$release_tag
+tagid1=`docker images|grep -i claimdemo|awk '{print $2}'`
+echo "tag old value:"$tagid1
+#tagid2=$(($tagid1 + 1))
+#echo "打印tag的值"$tagid2
+if [ "$release_tag" = "$tagid1" ];then
+  echo "新值和旧值相等"
 else
-    docker rmi $imagesid -f
-    echo "删除镜像成功"$imagesid
+  echo "新值和旧值不等，继续下面的操作"
+  imagesid=`docker images|grep -i claimdemo|awk '{print $3}'`
+  echo "查询到的镜像为"$imagesid
+  if  [ ! -n "$imagesid" ];then
+     echo $imagesid "is null"
+  else
+     docker rmi $imagesid -f
+     echo "删除镜像成功"$imagesid
+  fi
+  mvn clean package docker:build
+  docker tag claimdemo:1.0-SNAPSHOT 172.19.68.11:5000/claimdev/claimdemo:$release_tag
+  docker rmi claimdemo:1.0-SNAPSHOT
+  docker push 172.19.68.11:5000/claimdev/claimdemo:$release_tag
 fi
-mvn clean package docker:build
-docker tag claimgateway:1.0-SNAPSHOT 172.19.68.11:5000/claimdev/claimgateway:1.0-SNAPSHOT
-docker rmi claimgateway:1.0-SNAPSHOT
-docker push 172.19.68.11:5000/claimdev/claimgateway:1.0-SNAPSHOT
 
-#ssh server
-imagesid=`docker images|grep -i claimgateway|awk '{print $3}'`
-echo $imagesid
-if  [ ! -n "$imagesid" ];then
-   echo $imagesid "is null"
-else
-    docker rmi $imagesid -f
-    echo "删除镜像成功"$imagesid
-fi
-docker pull 172.19.68.11:5000/claimdev/claimgateway:1.0-SNAPSHOT
-imagesid2=`docker images|grep -i claimgateway|awk '{print $3}'`
-echo "最新镜像下载成功"$imagesid
-
-#ssh server
+#ssh server  node1节点
 cd /home/k8s/gateway
-kubectl replace -f gateway.yaml
+tagid1=$(cat gateway.txt)
+echo "打印从文件中读取的tagid值"$tagid1
+release_tag=$GIT_COMMIT
+if  [ ! -n "$tagid1" ];then
+   echo "这个是空值"
+   if [ "$release_tag" = "$tagid1" ];then
+      echo "新值和旧值相等"
+   else
+      echo "新值和旧值不等，继续下面的操作"
+      rm -f gateway.txt
+      echo $release_tag >> gateway.txt
+     # kubectl apply -f claimdemo.yaml
+   fi
+else
+  echo "不为空直接创建"
+  rm -f gateway.txt
+  echo $release_tag >> gateway.txt
+  kubectl apply -f claimdemo.yaml
+fi
 echo "发布成功"
