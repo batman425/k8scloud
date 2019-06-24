@@ -12,6 +12,7 @@
         <module>k8s-eureka</module>
         <module>k8s-gateway</module>
         <module>cowboy</module>
+        <module>k8s-kafka-client</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

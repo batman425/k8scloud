@@ -1,0 +1,7 @@
+1。有一个ingress服务，反向代理的，myk8s.com对应的路径是k8sgateway的8081端口
+2。有一个service的服务，暴露pod的8081端口出来，给ingress提供服务的
+3。在集群中建了一个deployment控制器管理的pod，副本数就1个，用的镜像是k8s-gateway:1.0-SNAPSHOT,pod的端口号是8081，
+做了端口号监控，如果失败会重新启动pod，还做了一个挂载卷，挂载在宿主机上的/home/k8s/gateway/logs/目录。
+容器内挂载的路径是/opt/dev/log/k8sgateway。相当于把容器内的日志文件共享在宿主机上的目录里，方便查看。
+
+kubectl explain deployment.spec.revisionHistoryLimit
