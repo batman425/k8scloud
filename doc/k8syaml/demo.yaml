@@ -4,21 +4,25 @@ metadata:
   name: demo-0
   namespace: default
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: k8sdemo
+      app: claimdemo
   template:
     metadata:
       labels:
-        app: k8sdemo
+        app: claimdemo
     spec:
-      nodeName: node1
+      #  nodeName: node1
       terminationGracePeriodSeconds: 60
       hostNetwork: true
+      #拉取harbor远程镜像使用
+      imagePullSecrets:
+      - name: registry-harbor
       containers:
-      - name: k8sdemo
-        image:  172.19.68.11:5000/batman/k8s-demo:1.0-SNAPSHOT
+      - name: claimdemo
+        image: 172.19.68.11:5000/claimdev/claimdemo:7
+        imagePullPolicy: Always #每次都检查
         ports:
         - name: http
           containerPort: 8051
@@ -38,25 +42,25 @@ spec:
         #引用pod定义的共享存储卷的名称，需用volumes[]部分定义的卷名
         - name: demologs
           #存储卷在容器内mount的绝对路径，应少于512字符
-          mountPath: /opt/dev/log/k8sdemo
+          mountPath: /opt/dev/log/claimdemo
       #在该pod上定义共享存储卷列表
       volumes:
       - name: demologs
         #挂载来源 表示挂载pod所在宿主机的目录
         hostPath:
-          path: /home/k8s/gateway/logs/
+          path: /home/k8s/claimdemo/logs/
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: k8sdemo
+  name: claimdemo
   namespace: default
   labels:
-    app: k8sdemo
+    app: claimdemo
 spec:
   ports:
   - port: 8051
-    name: k8sdemo
+    name: claimdemo
     targetPort: 8051
   selector:
-    app: k8sdemo
+    app: claimdemo
