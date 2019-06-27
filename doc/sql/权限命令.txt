@@ -1,0 +1,9 @@
+#创建用户 并给用户赋予实例权限
+CREATE USER 'sit'@'%' IDENTIFIED BY '123456';
+grant all privileges on `oauth2_sit`.* to 'sit'@'%' ;
+flush privileges;
+#给某个用户赋予查询的权限
+CREATE USER 'test'@'%' IDENTIFIED BY '123456';
+GRANT SElECT ON *.* TO 'test'@'%' IDENTIFIED BY "123456";
+
+Delete FROM mysql.user Where User='prod' and Host='%';

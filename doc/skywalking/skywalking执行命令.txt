@@ -1,0 +1,7 @@
+#以idea工具为例 微服务加入到skywalking说明
+#在springboot启动类里面 VM OPTIONS输入以下值
+-javaagent:F:\batmantools\apache-skywalking-apm-incubating\agent\skywalking-agent.jar
+
+#本地浏览器访问
+http://localhost:8080
+默认用户名和密码 admin admin

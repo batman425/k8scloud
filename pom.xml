@@ -13,6 +13,10 @@
         <module>k8s-gateway</module>
         <module>cowboy</module>
         <module>k8s-kafka-client</module>
+        <module>k8s-mybatis</module>
+        <module>k8s-skywalking-A</module>
+        <module>k8s-skywalking-B</module>
+        <module>k8s-skywalking-C</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

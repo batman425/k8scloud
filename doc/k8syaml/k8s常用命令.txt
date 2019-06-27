@@ -1,0 +1,2 @@
+1.查看节点详细信息
+kubectl describe node node1
