@@ -17,6 +17,10 @@
         <module>k8s-skywalking-A</module>
         <module>k8s-skywalking-B</module>
         <module>k8s-skywalking-C</module>
+        <module>k8s-mybatis-generator</module>
+        <module>dubbo-server</module>
+        <module>dubbo-client</module>
+        <module>dubbo-nacos-api</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

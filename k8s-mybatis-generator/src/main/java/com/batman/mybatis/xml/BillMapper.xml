@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.batman.mybatis.dao.BillMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.batman.mybatis.model.Bill">
+        <id column="id" property="id" />
+        <result column="file_id" property="fileId" />
+        <result column="claim_id" property="claimId" />
+        <result column="serial_no" property="serialNo" />
+        <result column="claim_serial_no" property="claimSerialNo" />
+        <result column="bill_no" property="billNo" />
+        <result column="bill_type" property="billType" />
+        <result column="mergency_type" property="mergencyType" />
+        <result column="health_type" property="healthType" />
+        <result column="vip_type" property="vipType" />
+        <result column="treatment_date" property="treatmentDate" />
+        <result column="in_hospital_date" property="inHospitalDate" />
+        <result column="out_hospital_date" property="outHospitalDate" />
+        <result column="hospital_code" property="hospitalCode" />
+        <result column="hospital_name" property="hospitalName" />
+        <result column="hospital_dept" property="hospitalDept" />
+        <result column="hospital_dept_name" property="hospitalDeptName" />
+        <result column="match_hospital_code" property="matchHospitalCode" />
+        <result column="match_hospital_name" property="matchHospitalName" />
+        <result column="match_hospital_status" property="matchHospitalStatus" />
+        <result column="diagnose_code" property="diagnoseCode" />
+        <result column="diagnose_name" property="diagnoseName" />
+        <result column="match_diagnose_code" property="matchDiagnoseCode" />
+        <result column="match_diagnose_name" property="matchDiagnoseName" />
+        <result column="match_diagnose_status" property="matchDiagnoseStatus" />
+        <result column="bill_amount" property="billAmount" />
+        <result column="bill_status" property="billStatus" />
+        <result column="social_pay_amount" property="socialPayAmount" />
+        <result column="class_pay_amount" property="classPayAmount" />
+        <result column="own_pay_amount" property="ownPayAmount" />
+        <result column="third_party_pay_amount" property="thirdPartyPayAmount" />
+        <result column="is_third_party_pay" property="isThirdPartyPay" />
+        <result column="fund_pay_amount" property="fundPayAmount" />
+        <result column="large_fund_hos_pay_amount" property="largeFundHosPayAmount" />
+        <result column="fund_year_total_pay_amount" property="fundYearTotalPayAmount" />
+        <result column="large_fund_out_curr_pay_amount" property="largeFundOutCurrPayAmount" />
+        <result column="large_fund_out_year_pay_amount" property="largeFundOutYearPayAmount" />
+        <result column="bill_user_name" property="billUserName" />
+        <result column="image_file_no" property="imageFileNo" />
+        <result column="image_file_id" property="imageFileId" />
+        <result column="reason_notes" property="reasonNotes" />
+        <result column="remark" property="remark" />
+        <result column="delete_flag" property="deleteFlag" />
+        <result column="create_operator" property="createOperator" />
+        <result column="create_time" property="createTime" />
+        <result column="update_operator" property="updateOperator" />
+        <result column="update_time" property="updateTime" />
+        <result column="artificial_describe" property="artificialDescribe" />
+        <result column="extra_pay_amount" property="extraPayAmount" />
+        <result column="personal_pay_amount" property="personalPayAmount" />
+        <result column="deductible" property="deductible" />
+    </resultMap>
+
+</mapper>
