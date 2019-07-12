@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Description: TODO
  * @date 2019/6/2416:47
  */
-@Component
+//@Component
 public class Receiver {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
