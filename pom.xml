@@ -21,6 +21,10 @@
         <module>dubbo-server</module>
         <module>dubbo-client</module>
         <module>dubbo-nacos-api</module>
+        <module>storm-demo</module>
+        <module>gexin-zookeeper</module>
+        <module>storm-kafka</module>
+        <module>storm2-kafka</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
